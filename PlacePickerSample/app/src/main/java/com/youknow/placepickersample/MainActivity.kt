@@ -3,6 +3,7 @@ package com.youknow.placepickersample
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -18,13 +19,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showPlacePicker() {
-        startActivity(Intent(this, PlacePickerActivity::class.java))
+        startActivityForResult(Intent(this, PlacePickerActivity::class.java), PLACE_PICKER_REQUEST_CODE)
     }
 
     private fun showPlacePickerWithParam() {
         val intent = Intent(this, PlacePickerActivity::class.java)
             .putExtra(LAT, 37.57946459244118)
             .putExtra(LNG, 126.97661027312279)
-        startActivity(intent)
+        startActivityForResult(intent, PLACE_PICKER_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == PLACE_PICKER_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                val address = data?.getStringExtra(ADDRESS)
+                val lat = data?.getDoubleExtra(LAT, 0.0)
+                val lng = data?.getDoubleExtra(LNG, 0.0)
+            }
+        }
     }
 }

@@ -1,27 +1,30 @@
 package com.youknow.placepickersample
 
 import android.annotation.SuppressLint
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import kotlinx.android.synthetic.main.activity_place_picker.*
 import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.yesButton
+import java.util.*
 
 
 private const val PERMISSION_REQUEST_CODE = 1200
+const val PLACE_PICKER_REQUEST_CODE = 900
+const val ADDRESS = "ADDRESS"
 const val LAT = "LAT"
 const val LNG = "LNG"
 
@@ -102,6 +105,22 @@ class PlacePickerActivity : AppCompatActivity() {
     private fun hasPermission(): Boolean = ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
 
     private fun selectLocation() {
-        Log.d("TEST", "[PP] lat: ${map.cameraPosition.target.latitude}, lng: ${map.cameraPosition.target.longitude}")
+        val address = Geocoder(this, Locale.getDefault())
+            .getFromLocation(map.cameraPosition.target.latitude, map.cameraPosition.target.longitude, 1)
+            .first()
+            .getAddressLine(0)
+
+        alert(address, getString(R.string.confirm_map_select)) {
+            yesButton { finishPlacePicker(address, map.cameraPosition.target.latitude, map.cameraPosition.target.longitude) }
+            noButton {  }
+        }.show()
+    }
+
+    private fun finishPlacePicker(address: String, latitude: Double, longitude: Double) {
+        val intent = Intent().putExtra(ADDRESS, address)
+            .putExtra(LAT, latitude)
+            .putExtra(LNG, longitude)
+        setResult(RESULT_OK, intent)
+        finish()
     }
 }
