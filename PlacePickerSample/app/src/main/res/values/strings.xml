@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PlacePicker Sample</string>
+    <string name="title_activity_place_picker">Map</string>
+    <string name="select_this_location">Select this location</string>
 </resources>
