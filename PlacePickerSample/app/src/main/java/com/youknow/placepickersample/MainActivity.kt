@@ -8,6 +8,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private var lat = 37.57946459244118
+    private var lng = 126.97661027312279
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,8 +27,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun showPlacePickerWithParam() {
         val intent = Intent(this, PlacePickerActivity::class.java)
-            .putExtra(LAT, 37.57946459244118)
-            .putExtra(LNG, 126.97661027312279)
+            .putExtra(LAT, lat)
+            .putExtra(LNG, lng)
         startActivityForResult(intent, PLACE_PICKER_REQUEST_CODE)
     }
 
@@ -35,8 +38,8 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == PLACE_PICKER_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 val address = data?.getStringExtra(ADDRESS)
-                val lat = data?.getDoubleExtra(LAT, 0.0)
-                val lng = data?.getDoubleExtra(LNG, 0.0)
+                lat = data?.getDoubleExtra(LAT, 0.0)!!
+                lng = data.getDoubleExtra(LNG, 0.0)
             }
         }
     }
