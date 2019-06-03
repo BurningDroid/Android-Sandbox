@@ -15,6 +15,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/btnSelectLocation"/>
 
+    <ImageView
+            android:id="@+id/ivMarker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_marker"
+            android:layout_marginBottom="27dp"
+            app:layout_constraintTop_toTopOf="@id/map"
+            app:layout_constraintBottom_toBottomOf="@id/map"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btnSelectLocation"
             android:layout_width="match_parent"

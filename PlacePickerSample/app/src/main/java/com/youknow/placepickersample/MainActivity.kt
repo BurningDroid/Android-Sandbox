@@ -12,9 +12,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btnPlacePicker.setOnClickListener { showPlacePicker() }
+        btnPlacePicker2.setOnClickListener {
+            showPlacePickerWithParam()
+        }
     }
 
     private fun showPlacePicker() {
         startActivity(Intent(this, PlacePickerActivity::class.java))
+    }
+
+    private fun showPlacePickerWithParam() {
+        val intent = Intent(this, PlacePickerActivity::class.java)
+            .putExtra(LAT, 37.57946459244118)
+            .putExtra(LNG, 126.97661027312279)
+        startActivity(intent)
     }
 }
