@@ -4,8 +4,6 @@ import android.view.View
 import com.youknow.domain.model.SimpleMovie
 import com.youknow.domain.usecase.GetNowPlayingMovies
 import com.youknow.movie.R
-import io.reactivex.Single
-import io.reactivex.schedulers.TestScheduler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -22,9 +20,9 @@ class MoviesPresenterTest {
     private lateinit var mockView: NowPlayingContract.View
 
     @Mock
-    private lateinit var getNowPlayingMovies: GetNowPlayingMovies
+    private lateinit var getMovies: GetNowPlayingMovies
 
-    private lateinit var moviesPresenter: NowPlayingPresenter
+    private lateinit var presenter: NowPlayingPresenter
 
     private lateinit var inOrder: InOrder
 
@@ -47,14 +45,14 @@ class MoviesPresenterTest {
 
         inOrder = Mockito.inOrder(mockView)
 
-        moviesPresenter = NowPlayingPresenter(mockView, getNowPlayingMovies, Dispatchers.Unconfined, Dispatchers.Unconfined)
+        presenter = NowPlayingPresenter(mockView, getMovies, Dispatchers.Unconfined, Dispatchers.Unconfined)
     }
 
     @Test
     fun `getMoviesNowPlayingTest() 정상 케이스 - ProgressBar를 보여줬다가 영화 목록을 정상적으로 받아오면 ProgressBar를 가리고 영화 목록을 보여줘야 한다`() = runBlocking {
-        `when`(getNowPlayingMovies.get()).thenReturn(mockMovies)
+        `when`(getMovies.get()).thenReturn(mockMovies)
 
-        moviesPresenter.getMoviesNowPlaying()
+        presenter.getMoviesNowPlaying()
 
         inOrder.verify(mockView).showProgressBar(View.VISIBLE)
         inOrder.verify(mockView).hideError()
@@ -64,9 +62,9 @@ class MoviesPresenterTest {
 
     @Test
     fun `getMoviesNowPlayingTest() 정상 케이스 - 영화 목록이 없는 경우 영화 목록이 없다는 메세지와 함께 에러 화면을 보여줘야 한다`() = runBlocking {
-        `when`(getNowPlayingMovies.get()).thenReturn(listOf())
+        `when`(getMovies.get()).thenReturn(listOf())
 
-        moviesPresenter.getMoviesNowPlaying()
+        presenter.getMoviesNowPlaying()
 
         inOrder.verify(mockView).showProgressBar(View.VISIBLE)
         inOrder.verify(mockView).hideError()
@@ -76,9 +74,9 @@ class MoviesPresenterTest {
 
 //    @Test
 //    fun `getMoviesNowPlayingTest() 예외 케이스 - 예외가 발생하면 에러 화면을 보여줘야 한다`() = runBlocking {
-//        `when`(getNowPlayingMovies.get()).thenThrow(Exception())
+//        `when`(getMovies.get()).thenThrow(Exception())
 //
-//        moviesPresenter.getMoviesNowPlaying()
+//        presenter.getMoviesNowPlaying()
 //
 //        inOrder.verify(mockView).showProgressBar(View.VISIBLE)
 //        inOrder.verify(mockView).hideError()
