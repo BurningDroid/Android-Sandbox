@@ -40,6 +40,9 @@ class MainActivity : AppCompatActivity() {
                 val address = data?.getStringExtra(ADDRESS)
                 lat = data?.getDoubleExtra(LAT, 0.0)!!
                 lng = data.getDoubleExtra(LNG, 0.0)
+                Log.d("TEST", "[PP] 1 - $address, $lat, $lng")
+            } else {
+
             }
         }
     }
