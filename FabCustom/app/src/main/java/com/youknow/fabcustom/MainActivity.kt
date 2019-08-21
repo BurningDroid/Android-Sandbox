@@ -1,11 +1,11 @@
 package com.youknow.fabcustom
 
 import android.animation.ObjectAnimator
-import android.graphics.drawable.TransitionDrawable
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,18 +30,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun toggleFab() {
         Toast.makeText(this, "Main clicked: $isFabOpen", Toast.LENGTH_SHORT).show()
-        val transitionDrawable = fabMain.drawable as TransitionDrawable
-        transitionDrawable.isCrossFadeEnabled = true
+
         if (isFabOpen) {
             ObjectAnimator.ofFloat(fabSub1, "translationY", 0f).apply { start() }
             ObjectAnimator.ofFloat(fabSub2, "translationY", 0f).apply { start() }
-            transitionDrawable.reverseTransition(300)
+            fabMain.setImageResource(R.drawable.ic_add)
         } else {
             ObjectAnimator.ofFloat(fabSub1, "translationY", -200f).apply { start() }
             ObjectAnimator.ofFloat(fabSub2, "translationY", -400f).apply { start() }
-            transitionDrawable.startTransition(300)
+            fabMain.setImageResource(R.drawable.ic_close)
         }
 
         isFabOpen = !isFabOpen
     }
+
 }
