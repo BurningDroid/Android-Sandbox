@@ -34,11 +34,11 @@ class MainActivity : AppCompatActivity() {
         if (isFabOpen) {
             ObjectAnimator.ofFloat(fabSub1, "translationY", 0f).apply { start() }
             ObjectAnimator.ofFloat(fabSub2, "translationY", 0f).apply { start() }
-            transitionDrawable.startTransition(300)
+            transitionDrawable.reverseTransition(300)
         } else {
             ObjectAnimator.ofFloat(fabSub1, "translationY", -200f).apply { start() }
             ObjectAnimator.ofFloat(fabSub2, "translationY", -400f).apply { start() }
-            transitionDrawable.reverseTransition(300)
+            transitionDrawable.startTransition(300)
         }
 
         isFabOpen = !isFabOpen
