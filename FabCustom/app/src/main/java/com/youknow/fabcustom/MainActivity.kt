@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private fun toggleFab() {
         Toast.makeText(this, "Main clicked: $isFabOpen", Toast.LENGTH_SHORT).show()
         val transitionDrawable = fabMain.drawable as TransitionDrawable
+        transitionDrawable.isCrossFadeEnabled = true
         if (isFabOpen) {
             ObjectAnimator.ofFloat(fabSub1, "translationY", 0f).apply { start() }
             ObjectAnimator.ofFloat(fabSub2, "translationY", 0f).apply { start() }
