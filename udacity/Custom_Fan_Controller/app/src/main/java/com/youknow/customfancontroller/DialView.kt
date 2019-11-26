@@ -3,6 +3,7 @@ package com.youknow.customfancontroller
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import kotlin.math.cos
 import kotlin.math.min
@@ -61,6 +62,8 @@ class DialView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
+        Log.d("TEST", "[CV] onDraw")
+
         paint.color = if (fanSpeed == FanSpeed.OFF) Color.GRAY else Color.GREEN
         canvas.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), radius, paint)
 
@@ -84,6 +87,7 @@ class DialView @JvmOverloads constructor(
         contentDescription = resources.getString(fanSpeed.label)
 
         invalidate()
+        Log.d("TEST", "[CV] performClick - invalidate")
         return true
     }
 }
