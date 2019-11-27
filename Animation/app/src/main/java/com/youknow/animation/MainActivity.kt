@@ -1,7 +1,9 @@
 package com.youknow.animation
 
+import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun rotate() {
-        
+        ObjectAnimator.ofFloat(ivSnow, View.ROTATION, -360f, 0f).start()
     }
 
     private fun translate() {
