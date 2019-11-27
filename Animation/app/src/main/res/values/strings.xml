@@ -6,4 +6,8 @@
     <string name="fade">Fade</string>
     <string name="color">Color</string>
     <string name="snowing">Snowing</string>
+    <string name="start">Start</string>
+    <string name="rotation">ROTATION</string>
+    <string name="rotation_y">ROTATION_Y</string>
+    <string name="rotation_x">ROTATION_X</string>
 </resources>

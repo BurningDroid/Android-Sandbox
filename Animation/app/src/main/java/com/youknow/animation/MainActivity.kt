@@ -1,9 +1,9 @@
 package com.youknow.animation
 
-import android.animation.ObjectAnimator
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import com.youknow.animation.animations.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -12,35 +12,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnRotate.setOnClickListener { rotate() }
-        btnTranslate.setOnClickListener { translate() }
-        btnScale.setOnClickListener { scale() }
-        btnFade.setOnClickListener { fade() }
-        btnColor.setOnClickListener { color() }
-        btnSnowing.setOnClickListener { snowing() }
+        btnRotate.setOnClickListener { moveActivity(RotateActivity::class.java) }
+        btnTranslate.setOnClickListener { moveActivity(TranslateActivity::class.java) }
+        btnScale.setOnClickListener { moveActivity(ScaleActivity::class.java) }
+        btnFade.setOnClickListener { moveActivity(FadeActivity::class.java) }
+        btnColor.setOnClickListener { moveActivity(ColorActivity::class.java) }
+        btnSnowing.setOnClickListener { moveActivity(SnowingActivity::class.java) }
     }
 
-    private fun rotate() {
-        ObjectAnimator.ofFloat(ivSnow, View.ROTATION, -360f, 0f).start()
-    }
-
-    private fun translate() {
-
-    }
-
-    private fun scale() {
-
-    }
-
-    private fun fade() {
-
-    }
-
-    private fun color() {
-    }
-
-    private fun snowing() {
-
+    private fun moveActivity(activity: Class<out AppCompatActivity>) {
+        startActivity(Intent(this, activity))
     }
 
 }

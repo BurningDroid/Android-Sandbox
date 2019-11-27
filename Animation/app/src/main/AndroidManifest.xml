@@ -9,6 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".animations.SnowingActivity"></activity>
+        <activity android:name=".animations.ColorActivity" />
+        <activity android:name=".animations.FadeActivity" />
+        <activity android:name=".animations.ScaleActivity" />
+        <activity android:name=".animations.TranslateActivity" />
+        <activity android:name=".animations.RotateActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
