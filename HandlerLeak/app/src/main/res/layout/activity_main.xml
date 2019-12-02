@@ -7,12 +7,22 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btn"
+        android:id="@+id/btnLeak"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="32dp"
-        android:text="Click"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Leak Click"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@id/btnNonLeak"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnNonLeak"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="32dp"
+        android:text="Non Leak Click"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnLeak" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

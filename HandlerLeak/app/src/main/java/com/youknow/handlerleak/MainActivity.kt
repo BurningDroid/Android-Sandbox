@@ -11,8 +11,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btn.setOnClickListener {
-//            startActivity(Intent(this, LeakActivity::class.java))
+        btnLeak.setOnClickListener {
+            startActivity(Intent(this, LeakActivity::class.java))
+        }
+
+        btnNonLeak.setOnClickListener {
             startActivity(Intent(this, NonLeakActivity::class.java))
         }
     }

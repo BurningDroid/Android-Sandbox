@@ -23,7 +23,7 @@ class LeakActivity : AppCompatActivity() {
 
         handler.postDelayed({
             Log.d(TAG, "run!!!")
-        }, 6_000)
+        }, 10_000)
         finish()
     }
 }

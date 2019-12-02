@@ -11,14 +11,9 @@ import java.lang.ref.WeakReference;
 
 public class NonLeakActivity extends AppCompatActivity {
 
-    static NonLeakHandler handler = new NonLeakHandler();
+    private NonLeakHandler handler = new NonLeakHandler();
 
     private static final class NonLeakHandler extends Handler {
-
-        public NonLeakHandler() {
-            Log.d("TEST", "[MemoryLeak] NonLeakHandler create");
-        }
-
         @Override
         public void handleMessage(Message msg) {
             Log.d("TEST", "[MemoryLeak] handleMessage");
@@ -35,7 +30,7 @@ public class NonLeakActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d("TEST", "[MemoryLeak] onCreate");
 
-        handler.postDelayed(runnable, 60000);
+        handler.postDelayed(runnable, 10_000);
         finish();
     }
 
@@ -46,3 +41,5 @@ public class NonLeakActivity extends AppCompatActivity {
         handler.removeCallbacksAndMessages(null);
     }
 }
+
+
