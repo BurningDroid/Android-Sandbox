@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".animations.SnowingActivity"></activity>
+        <activity
+            android:name=".animations.SnowingActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".animations.ColorActivity" />
         <activity android:name=".animations.FadeActivity" />
         <activity android:name=".animations.ScaleActivity" />
