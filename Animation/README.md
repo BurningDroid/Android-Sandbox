@@ -17,20 +17,20 @@ Same as the [codelab](https://codelabs.developers.google.com/codelabs/advanced-a
 You can see the results:
 
 ## 1. Rotate 
-![Rotate](./Animation/screenshots/rotate.gif)
+![Rotate](./screenshots/rotate.gif)
 
 ## 2. Translate
-![Translate](./Animation/screenshots/translate.gif)
+![Translate](./screenshots/translate.gif)
 
 ## 3. Scale
-![Scale](./Animation/screenshots/scale.gif)
+![Scale](./screenshots/scale.gif)
 
 ## 4. Fade
-![Fade](./Animation/screenshots/fade.gif)
+![Fade](./screenshots/fade.gif)
 
 ## 5. Color
-![Color](./Animation/screenshots/color.gif)
+![Color](./screenshots/color.gif)
 
 ## 6. Snowing
-![Snowing](./Animation/screenshots/snowing.gif)
+![Snowing](./screenshots/snowing.gif)
 
