@@ -3,8 +3,10 @@ package com.youknow.simplemvvm
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
-class MainViewModel {
+class MainViewModel: ViewModel() {
+
     private val _name = MutableLiveData("Ada")
     private val _lastName = MutableLiveData("Lovelace")
     private val _count =  MutableLiveData(0)
