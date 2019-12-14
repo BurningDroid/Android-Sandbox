@@ -3,12 +3,12 @@ package com.youknow.simplemvvm
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.youknow.simplemvvm.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel by lazy { ViewModelProviders.of(this).get(MainViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProvider(this).get(MainViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
