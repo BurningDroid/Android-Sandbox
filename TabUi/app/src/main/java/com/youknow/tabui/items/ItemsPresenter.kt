@@ -26,36 +26,36 @@ class ItemsPresenter(
     override fun getItemsByCategory(category: String) {
         val items = when (category) {
             CATEGORY_BASIC -> listOf(
-                Item("Basic 1"),
-                Item("Basic 2"),
-                Item("Basic 3"),
-                Item("Basic 4")
+                Item("Basic 1", CATEGORY_BASIC),
+                Item("Basic 2", CATEGORY_BASIC),
+                Item("Basic 3", CATEGORY_BASIC),
+                Item("Basic 4", CATEGORY_BASIC)
             )
             CATEGORY_SEASONAL -> listOf(
-                Item("Seasonal 1", R.drawable.ic_item_android_2),
-                Item("Seasonal 2", R.drawable.ic_item_android_2),
-                Item("Seasonal 3", R.drawable.ic_item_android_2),
-                Item("Seasonal 4", R.drawable.ic_item_android_2),
-                Item("Seasonal 5", R.drawable.ic_item_android_2),
-                Item("Seasonal 6", R.drawable.ic_item_android_2),
-                Item("Seasonal 7", R.drawable.ic_item_android_2),
-                Item("Seasonal 8", R.drawable.ic_item_android_2)
+                Item("Seasonal 1", CATEGORY_SEASONAL, R.drawable.ic_item_android_2),
+                Item("Seasonal 2", CATEGORY_SEASONAL, R.drawable.ic_item_android_2),
+                Item("Seasonal 3", CATEGORY_SEASONAL, R.drawable.ic_item_android_2),
+                Item("Seasonal 4", CATEGORY_SEASONAL, R.drawable.ic_item_android_2),
+                Item("Seasonal 5", CATEGORY_SEASONAL, R.drawable.ic_item_android_2),
+                Item("Seasonal 6", CATEGORY_SEASONAL, R.drawable.ic_item_android_2),
+                Item("Seasonal 7", CATEGORY_SEASONAL, R.drawable.ic_item_android_2),
+                Item("Seasonal 8", CATEGORY_SEASONAL, R.drawable.ic_item_android_2)
             )
             CATEGORY_SITUATION -> listOf(
-                Item("Situation 1", R.drawable.ic_item_android_3),
-                Item("Situation 2", R.drawable.ic_item_android_3),
-                Item("Situation 3", R.drawable.ic_item_android_3),
-                Item("Situation 4", R.drawable.ic_item_android_3)
+                Item("Situation 1", CATEGORY_SITUATION, R.drawable.ic_item_android_3),
+                Item("Situation 2", CATEGORY_SITUATION, R.drawable.ic_item_android_3),
+                Item("Situation 3", CATEGORY_SITUATION, R.drawable.ic_item_android_3),
+                Item("Situation 4", CATEGORY_SITUATION, R.drawable.ic_item_android_3)
             )
             CATEGORY_BRAND -> listOf(
-                Item("Brand 1", R.drawable.ic_item_android_4),
-                Item("Brand 2", R.drawable.ic_item_android_4),
-                Item("Brand 3", R.drawable.ic_item_android_4),
-                Item("Brand 4", R.drawable.ic_item_android_4),
-                Item("Brand 5", R.drawable.ic_item_android_4),
-                Item("Brand 6", R.drawable.ic_item_android_4),
-                Item("Brand 7", R.drawable.ic_item_android_4),
-                Item("Brand 8", R.drawable.ic_item_android_4)
+                Item("Brand 1", CATEGORY_BRAND, R.drawable.ic_item_android_4),
+                Item("Brand 2", CATEGORY_BRAND, R.drawable.ic_item_android_4),
+                Item("Brand 3", CATEGORY_BRAND, R.drawable.ic_item_android_4),
+                Item("Brand 4", CATEGORY_BRAND, R.drawable.ic_item_android_4),
+                Item("Brand 5", CATEGORY_BRAND, R.drawable.ic_item_android_4),
+                Item("Brand 6", CATEGORY_BRAND, R.drawable.ic_item_android_4),
+                Item("Brand 7", CATEGORY_BRAND, R.drawable.ic_item_android_4),
+                Item("Brand 8", CATEGORY_BRAND, R.drawable.ic_item_android_4)
             )
             else -> null
         }
@@ -66,10 +66,10 @@ class ItemsPresenter(
     }
 
     companion object {
-        private const val CATEGORY_BASIC = "Basic"
-        private const val CATEGORY_SEASONAL = "Seasonal"
-        private const val CATEGORY_SITUATION = "Situation"
-        private const val CATEGORY_BRAND = "Brand"
+        const val CATEGORY_BASIC = "Basic"
+        const val CATEGORY_SEASONAL = "Seasonal"
+        const val CATEGORY_SITUATION = "Situation"
+        const val CATEGORY_BRAND = "Brand"
     }
 
 }

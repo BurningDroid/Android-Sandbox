@@ -42,6 +42,15 @@ class ItemsAdapter(
         }
     }
 
+    fun firstPosition(tag: Any?): Int {
+        val position = items.indexOfFirst { it?.category == tag }
+        return if (position == -1) {
+            0
+        } else {
+            position
+        }
+    }
+
     class ItemHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_item, parent, false)
     ) {

@@ -1,12 +1,13 @@
 package com.youknow.tabui.items
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView.SmoothScroller
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.youknow.tabui.R
@@ -18,6 +19,11 @@ class ItemsFragment : Fragment(), ItemsContract.View {
 
     private val presenter: ItemsContract.Presenter by lazy { ItemsPresenter(this) }
     private val itemsAdapter: ItemsAdapter by lazy { ItemsAdapter(Glide.with(activity?.applicationContext!!)) }
+    private val smoothScroller: SmoothScroller by lazy {
+        object : LinearSmoothScroller(context) {
+            override fun getVerticalSnapPreference() = SNAP_TO_START
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,8 +49,12 @@ class ItemsFragment : Fragment(), ItemsContract.View {
 
     override fun onCategoryListLoaded(categoryList: List<String>) {
         categoryList.map { category ->
-            tabLayout.addTab(tabLayout.newTab().setText(category))
-            presenter.getItemsByCategory(category)
+            tabLayout.newTab()
+                .setText(category)
+                .setTag(category)
+        }.map { tab ->
+            tabLayout.addTab(tab)
+            presenter.getItemsByCategory(tab.tag.toString())
         }
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -57,7 +67,10 @@ class ItemsFragment : Fragment(), ItemsContract.View {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
+                if (tab == null) return
 
+                smoothScroller.targetPosition = itemsAdapter.firstPosition(tab.tag)
+                rvStickers.layoutManager?.startSmoothScroll(smoothScroller)
             }
 
         })
@@ -70,8 +83,6 @@ class ItemsFragment : Fragment(), ItemsContract.View {
 
         itemsAdapter.items.addAll(items)
         itemsAdapter.notifyDataSetChanged()
-
-        Log.d("TEST", "[tab] onItemsLoaded - ${itemsAdapter.items.size}")
     }
 
     private fun initView() {
