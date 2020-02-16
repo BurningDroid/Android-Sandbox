@@ -2,6 +2,7 @@ package com.youknow.tabui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.youknow.tabui.items.ItemsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
