@@ -12,8 +12,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.util.fastFirstOrNull
 
-fun Modifier.reSortable(
-    state: ReSortableState<*>
+fun Modifier.sortable(
+    state: ReSortableState
 ) = then(
     Modifier.pointerInput(Unit) {
         forEachGesture {
@@ -22,9 +22,6 @@ fun Modifier.reSortable(
                 currentEvent.changes.fastFirstOrNull { it.id == dragStart.id }
             }
             if (down != null && state.onDragStart(down.position.x.toInt(), down.position.y.toInt())) {
-                dragStart.offset?.apply {
-                    state.onDrag(x.toInt(), y.toInt())
-                }
                 detectDrag(
                     down.id,
                     onDragEnd = {
@@ -64,4 +61,6 @@ internal suspend fun PointerInputScope.detectDrag(
     }
 }
 
-internal data class StartDrag(val id: PointerId, val offset: Offset? = null)
+internal data class StartDrag(
+    val id: PointerId
+)

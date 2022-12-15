@@ -12,7 +12,7 @@ import androidx.compose.ui.zIndex
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LazyItemScope.ReSortableItem(
-    reSortableState: ReSortableState<*>,
+    reSortableState: ReSortableState,
     key: Any?,
     modifier: Modifier = Modifier,
     index: Int? = null,
@@ -21,8 +21,8 @@ fun LazyItemScope.ReSortableItem(
 ) = ReSortableItem(reSortableState, key, modifier, Modifier.animateItemPlacement(), orientationLocked, index, content)
 
 @Composable
-fun ReSortableItem(
-    state: ReSortableState<*>,
+private fun ReSortableItem(
+    state: ReSortableState,
     key: Any?,
     modifier: Modifier = Modifier,
     defaultDraggingModifier: Modifier = Modifier,

@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 
 
-fun Modifier.detectReSortAfterLongPress(state: ReSortableState<*>) =
+fun Modifier.detectReSortAfterLongPress(state: ReSortableState) =
     this.then(
         Modifier.pointerInput(Unit) {
             forEachGesture {

@@ -10,25 +10,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
 
-interface DragCancelledAnimation {
-    suspend fun dragCancelled(position: ItemPosition, offset: Offset)
-    val position: ItemPosition?
-    val offset: Offset
-}
-
-class SpringDragCancelledAnimation(
+class DragCancelledAnimation(
     private val stiffness: Float = Spring.StiffnessMediumLow
-) : DragCancelledAnimation {
+) {
 
     private val animatable = Animatable(Offset.Zero, Offset.VectorConverter)
 
-    override val offset: Offset
+    val offset: Offset
         get() = animatable.value
 
-    override var position by mutableStateOf<ItemPosition?>(null)
+    var position by mutableStateOf<ItemPosition?>(null)
         private set
 
-    override suspend fun dragCancelled(position: ItemPosition, offset: Offset) {
+    suspend fun dragCancelled(position: ItemPosition, offset: Offset) {
         this.position = position
         animatable.snapTo(offset)
         animatable.animateTo(

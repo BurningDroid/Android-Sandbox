@@ -32,8 +32,8 @@ import androidx.compose.ui.unit.dp
 import com.aaron.sample.dragndroplist.dragndrop.DragDropColumn
 import com.aaron.sample.dragndroplist.dragndrop2.ReSortableItem
 import com.aaron.sample.dragndroplist.dragndrop2.detectReSortAfterLongPress
-import com.aaron.sample.dragndroplist.dragndrop2.rememberReSortableLazyListState
-import com.aaron.sample.dragndroplist.dragndrop2.reSortable
+import com.aaron.sample.dragndroplist.dragndrop2.rememberSortableLazyListState
+import com.aaron.sample.dragndroplist.dragndrop2.sortable
 import com.aaron.sample.dragndroplist.ui.theme.DragNDropListTheme
 
 class MainActivity : ComponentActivity() {
@@ -85,27 +85,24 @@ fun MyScreen(vm: MainViewModel) {
 @Composable
 fun MyScreen2(vm: MainViewModel) {
     val users = vm.users
-    val state = rememberReSortableLazyListState(onMove = { from, to ->
+    val state = rememberSortableLazyListState(onMove = { from, to ->
         vm.swapUser(from.index, to.index)
     })
     LazyColumn(
         state = state.listState,
         modifier = Modifier
-            .reSortable(state)
+            .sortable(state)
             .detectReSortAfterLongPress(state)
     ) {
         items(users, { it }) { user ->
             ReSortableItem(state, key = user) { isDragging ->
-                val elevation = animateDpAsState(if (isDragging) 16.dp else 0.dp)
                 Card(
-                    modifier = Modifier.shadow(elevation.value),
                     elevation = if (isDragging) 16.dp else 0.dp
                 ) {
                     Column {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .background(Color.LightGray)
                                 .padding(16.dp),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {

@@ -1,5 +1,8 @@
 package com.aaron.sample.dragndroplist.dragndrop2
 
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.lazy.LazyListItemInfo
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -21,7 +24,8 @@ import kotlin.math.min
 import kotlin.math.sign
 
 
-abstract class ReSortableState<T>(
+class ReSortableState(
+    val listState: LazyListState,
     private val scope: CoroutineScope,
     private val maxScrollPerFrame: Float,
     private val onMove: (fromIndex: ItemPosition, toIndex: ItemPosition) -> (Unit),
@@ -33,19 +37,48 @@ abstract class ReSortableState<T>(
         private set
     val draggingItemKey: Any?
         get() = selected?.itemKey
-    protected abstract val T.left: Int
-    protected abstract val T.top: Int
-    protected abstract val T.right: Int
-    protected abstract val T.bottom: Int
-    protected abstract val T.width: Int
-    protected abstract val T.height: Int
-    protected abstract val T.itemIndex: Int
-    protected abstract val T.itemKey: Any
-    protected abstract val visibleItemsInfo: List<T>
-    protected abstract val firstVisibleItemIndex: Int
-    protected abstract val firstVisibleItemScrollOffset: Int
-    protected abstract val viewportStartOffset: Int
-    protected abstract val viewportEndOffset: Int
+    private val LazyListItemInfo.left: Int
+        get() = when {
+            isVerticalScroll -> 0
+            listState.layoutInfo.reverseLayout -> listState.layoutInfo.viewportSize.width - offset - size
+            else -> offset
+        }
+    private val LazyListItemInfo.top: Int
+        get() = when {
+            !isVerticalScroll -> 0
+            listState.layoutInfo.reverseLayout -> listState.layoutInfo.viewportSize.height - offset - size
+            else -> offset
+        }
+    private val LazyListItemInfo.right: Int
+        get() = when {
+            isVerticalScroll -> 0
+            listState.layoutInfo.reverseLayout -> listState.layoutInfo.viewportSize.width - offset
+            else -> offset + size
+        }
+    private val LazyListItemInfo.bottom: Int
+        get() = when {
+            !isVerticalScroll -> 0
+            listState.layoutInfo.reverseLayout -> listState.layoutInfo.viewportSize.height - offset
+            else -> offset + size
+        }
+    private val LazyListItemInfo.width: Int
+        get() = if (isVerticalScroll) 0 else size
+    private val LazyListItemInfo.height: Int
+        get() = if (isVerticalScroll) size else 0
+    private val LazyListItemInfo.itemIndex: Int
+        get() = index
+    private val LazyListItemInfo.itemKey: Any
+        get() = key
+    private val visibleItemsInfo: List<LazyListItemInfo>
+        get() = listState.layoutInfo.visibleItemsInfo
+    private val firstVisibleItemIndex: Int
+        get() = listState.firstVisibleItemIndex
+    private val firstVisibleItemScrollOffset: Int
+        get() = listState.firstVisibleItemScrollOffset
+    private val viewportStartOffset: Int
+        get() = listState.layoutInfo.viewportStartOffset
+    private val viewportEndOffset: Int
+        get() = listState.layoutInfo.viewportEndOffset
     internal val interactions = Channel<StartDrag>()
     internal val scrollChannel = Channel<Float>()
     val draggingItemLeft: Float
@@ -56,17 +89,20 @@ abstract class ReSortableState<T>(
         get() = draggingLayoutInfo?.let { item ->
             (selected?.top ?: 0) + draggingDelta.y - item.top
         } ?: 0f
-    abstract val isVerticalScroll: Boolean
-    private val draggingLayoutInfo: T?
+    val isVerticalScroll: Boolean
+        get() = listState.layoutInfo.orientation == Orientation.Vertical
+    private val draggingLayoutInfo: LazyListItemInfo?
         get() = visibleItemsInfo
             .firstOrNull { it.itemIndex == draggingItemIndex }
     private var draggingDelta by mutableStateOf(Offset.Zero)
-    private var selected by mutableStateOf<T?>(null)
+    private var selected by mutableStateOf<LazyListItemInfo?>(null)
     private var autoscroller: Job? = null
-    private val targets = mutableListOf<T>()
+    private val targets = mutableListOf<LazyListItemInfo>()
     private val distances = mutableListOf<Int>()
 
-    protected abstract suspend fun scrollToItem(index: Int, offset: Int)
+    private suspend fun scrollToItem(index: Int, offset: Int) {
+        listState.scrollToItem(index, offset)
+    }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     internal fun visibleItemsChanged() =
@@ -75,18 +111,14 @@ abstract class ReSortableState<T>(
             .filterNotNull()
             .distinctUntilChanged { old, new -> old.firstOrNull()?.itemIndex == new.firstOrNull()?.itemIndex && old.count() == new.count() }
 
-    internal open fun onDragStart(offsetX: Int, offsetY: Int): Boolean {
-        val x: Int
-        val y: Int
-        if (isVerticalScroll) {
-            x = offsetX
-            y = offsetY + viewportStartOffset
+    internal fun onDragStart(posX: Int, posY: Int): Boolean {
+        val (x, y) = if (isVerticalScroll) {
+            0 to posY + viewportStartOffset
         } else {
-            x = offsetX + viewportStartOffset
-            y = offsetY
+            posX + viewportStartOffset to 0
         }
         return visibleItemsInfo
-            .firstOrNull { x in it.left..it.right && y in it.top..it.bottom }
+            .find { x in it.left..it.right && y in it.top..it.bottom }
             ?.also {
                 selected = it
                 draggingItemIndex = it.itemIndex
@@ -178,7 +210,13 @@ abstract class ReSortableState<T>(
         autoscroller = null
     }
 
-    protected open fun findTargets(x: Int, y: Int, selected: T): List<T> {
+    private fun findTargets(posX: Int, posY: Int, selected: LazyListItemInfo): List<LazyListItemInfo> {
+        val (x, y) = if (isVerticalScroll) {
+            0 to posY
+        } else {
+            posX to 0
+        }
+
         targets.clear()
         distances.clear()
         val left = x + selected.left
@@ -220,11 +258,22 @@ abstract class ReSortableState<T>(
         return targets
     }
 
-    protected open fun chooseDropItem(draggedItemInfo: T?, items: List<T>, curX: Int, curY: Int): T? {
+    private fun chooseDropItem(
+        draggedItemInfo: LazyListItemInfo?,
+        items: List<LazyListItemInfo>,
+        offsetX: Int,
+        offsetY: Int
+    ): LazyListItemInfo? {
+        val (curX, curY) = if (isVerticalScroll) {
+            0 to offsetY
+        } else {
+            offsetX to 0
+        }
+
         if (draggedItemInfo == null) {
             return if (draggingItemIndex != null) items.lastOrNull() else null
         }
-        var target: T? = null
+        var target: LazyListItemInfo? = null
         var highScore = -1
         val right = curX + draggedItemInfo.width
         val bottom = curY + draggedItemInfo.height
