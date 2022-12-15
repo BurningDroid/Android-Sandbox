@@ -2,6 +2,7 @@ package com.aaron.sample.dragndroplist.dragndrop
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.lazy.LazyListItemInfo
 import androidx.compose.foundation.lazy.LazyListState
@@ -44,7 +45,6 @@ class DragDropState internal constructor(
             state.getVisibleItemInfoFor(absoluteIndex = it)
         }
 
-
     fun onDragStart(offset: Offset) {
         state.layoutInfo.visibleItemsInfo
             .firstOrNull { item -> offset.y.toInt() in item.offset..(item.offset + item.size) }
@@ -57,16 +57,7 @@ class DragDropState internal constructor(
 
     fun onDragInterrupted() {
         if (currentIndexOfDraggedItem != null) {
-            previousIndexOfDraggedItem = currentIndexOfDraggedItem
-            val startOffset = draggingItemOffset
-            scope.launch {
-                previousItemOffset.snapTo(startOffset)
-                previousItemOffset.animateTo(
-                    0f,
-                    tween(easing = FastOutLinearInEasing)
-                )
-                previousIndexOfDraggedItem = null
-            }
+            previousIndexOfDraggedItem = null
         }
         draggingItemInitialOffset = 0
         draggedDistance = 0f
