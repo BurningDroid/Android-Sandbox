@@ -4,7 +4,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.lazy.LazyItemScope
-import androidx.compose.foundation.lazy.grid.LazyGridItemScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
@@ -12,18 +11,18 @@ import androidx.compose.ui.zIndex
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun LazyItemScope.ReorderableItem(
-    reorderableState: ReorderableState<*>,
+fun LazyItemScope.ReSortableItem(
+    reSortableState: ReSortableState<*>,
     key: Any?,
     modifier: Modifier = Modifier,
     index: Int? = null,
     orientationLocked: Boolean = true,
     content: @Composable BoxScope.(isDragging: Boolean) -> Unit
-) = ReorderableItem(reorderableState, key, modifier, Modifier.animateItemPlacement(), orientationLocked, index, content)
+) = ReSortableItem(reSortableState, key, modifier, Modifier.animateItemPlacement(), orientationLocked, index, content)
 
 @Composable
-fun ReorderableItem(
-    state: ReorderableState<*>,
+fun ReSortableItem(
+    state: ReSortableState<*>,
     key: Any?,
     modifier: Modifier = Modifier,
     defaultDraggingModifier: Modifier = Modifier,

@@ -21,7 +21,7 @@ import kotlin.math.min
 import kotlin.math.sign
 
 
-abstract class ReorderableState<T>(
+abstract class ReSortableState<T>(
     private val scope: CoroutineScope,
     private val maxScrollPerFrame: Float,
     private val onMove: (fromIndex: ItemPosition, toIndex: ItemPosition) -> (Unit),

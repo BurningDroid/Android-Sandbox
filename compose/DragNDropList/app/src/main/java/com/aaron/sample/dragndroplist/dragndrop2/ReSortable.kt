@@ -12,8 +12,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.util.fastFirstOrNull
 
-fun Modifier.reorderable(
-    state: ReorderableState<*>
+fun Modifier.reSortable(
+    state: ReSortableState<*>
 ) = then(
     Modifier.pointerInput(Unit) {
         forEachGesture {
@@ -54,7 +54,6 @@ internal suspend fun PointerInputScope.detectDrag(
                 it.consume()
             }
         ) {
-            // consume up if we quit drag gracefully with the up
             currentEvent.changes.forEach {
                 if (it.changedToUp()) it.consume()
             }

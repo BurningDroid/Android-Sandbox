@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
-fun rememberReorderableLazyListState(
+fun rememberReSortableLazyListState(
     onMove: (ItemPosition, ItemPosition) -> Unit,
     listState: LazyListState = rememberLazyListState(),
     canDragOver: ((draggedOver: ItemPosition, dragging: ItemPosition) -> Boolean)? = null,
@@ -58,7 +58,7 @@ class ReorderableLazyListState(
     canDragOver: ((draggedOver: ItemPosition, dragging: ItemPosition) -> Boolean)? = null,
     onDragEnd: ((startIndex: Int, endIndex: Int) -> (Unit))? = null,
     dragCancelledAnimation: DragCancelledAnimation = SpringDragCancelledAnimation()
-) : ReorderableState<LazyListItemInfo>(
+) : ReSortableState<LazyListItemInfo>(
     scope,
     maxScrollPerFrame,
     onMove,

@@ -8,7 +8,6 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,10 +30,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.aaron.sample.dragndroplist.dragndrop.DragDropColumn
-import com.aaron.sample.dragndroplist.dragndrop2.ReorderableItem
-import com.aaron.sample.dragndroplist.dragndrop2.detectReorderAfterLongPress
-import com.aaron.sample.dragndroplist.dragndrop2.rememberReorderableLazyListState
-import com.aaron.sample.dragndroplist.dragndrop2.reorderable
+import com.aaron.sample.dragndroplist.dragndrop2.ReSortableItem
+import com.aaron.sample.dragndroplist.dragndrop2.detectReSortAfterLongPress
+import com.aaron.sample.dragndroplist.dragndrop2.rememberReSortableLazyListState
+import com.aaron.sample.dragndroplist.dragndrop2.reSortable
 import com.aaron.sample.dragndroplist.ui.theme.DragNDropListTheme
 
 class MainActivity : ComponentActivity() {
@@ -86,17 +85,17 @@ fun MyScreen(vm: MainViewModel) {
 @Composable
 fun MyScreen2(vm: MainViewModel) {
     val users = vm.users
-    val state = rememberReorderableLazyListState(onMove = { from, to ->
+    val state = rememberReSortableLazyListState(onMove = { from, to ->
         vm.swapUser(from.index, to.index)
     })
     LazyColumn(
         state = state.listState,
         modifier = Modifier
-            .reorderable(state)
-            .detectReorderAfterLongPress(state)
+            .reSortable(state)
+            .detectReSortAfterLongPress(state)
     ) {
         items(users, { it }) { user ->
-            ReorderableItem(state, key = user) { isDragging ->
+            ReSortableItem(state, key = user) { isDragging ->
                 val elevation = animateDpAsState(if (isDragging) 16.dp else 0.dp)
                 Card(
                     modifier = Modifier.shadow(elevation.value),

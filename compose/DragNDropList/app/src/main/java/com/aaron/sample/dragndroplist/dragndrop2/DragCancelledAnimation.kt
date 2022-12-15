@@ -16,8 +16,12 @@ interface DragCancelledAnimation {
     val offset: Offset
 }
 
-class SpringDragCancelledAnimation(private val stiffness: Float = Spring.StiffnessMediumLow) : DragCancelledAnimation {
+class SpringDragCancelledAnimation(
+    private val stiffness: Float = Spring.StiffnessMediumLow
+) : DragCancelledAnimation {
+
     private val animatable = Animatable(Offset.Zero, Offset.VectorConverter)
+
     override val offset: Offset
         get() = animatable.value
 
