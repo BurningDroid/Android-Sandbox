@@ -11,13 +11,9 @@ class MainViewModel: ViewModel() {
         private set
 
     fun swapUser(from: Int, to: Int) {
-        val newUsers = users.toMutableList()
-
-        val fromUser = newUsers[from]
-        newUsers[from] = newUsers[to]
-        newUsers[to] = fromUser
-
-        users = newUsers
+        users = users.toMutableList().apply {
+            add(to, removeAt(from))
+        }
     }
 
 }
