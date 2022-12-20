@@ -30,10 +30,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.aaron.sample.dragndroplist.dragndrop.DragDropColumn
-import com.aaron.sample.dragndroplist.dragndrop2.ReSortableItem
-import com.aaron.sample.dragndroplist.dragndrop2.detectReSortAfterLongPress
-import com.aaron.sample.dragndroplist.dragndrop2.rememberSortableLazyListState
-import com.aaron.sample.dragndroplist.dragndrop2.sortable
+import com.aaron.sample.dragndroplist.dragndrop.ReSortableItem
+import com.aaron.sample.dragndroplist.dragndrop.detectReSortAfterLongPress
+import com.aaron.sample.dragndroplist.dragndrop.rememberSortableLazyListState
+import com.aaron.sample.dragndroplist.dragndrop.sortable
 import com.aaron.sample.dragndroplist.ui.theme.DragNDropListTheme
 
 class MainActivity : ComponentActivity() {
@@ -50,34 +50,6 @@ class MainActivity : ComponentActivity() {
                     MyScreen2(vm)
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun MyScreen(vm: MainViewModel) {
-    val users = vm.users
-    DragDropColumn(items = users, onReorder = vm::swapUser) { user ->
-        Column {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.LightGray)
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Row() {
-                    Image(imageVector = ImageVector.vectorResource(id = R.drawable.ic_person), contentDescription = "")
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Text("${user.id}")
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(user.name)
-                }
-
-                Image(imageVector = ImageVector.vectorResource(id = R.drawable.ic_menu), contentDescription = "")
-            }
-
-            Divider()
         }
     }
 }
