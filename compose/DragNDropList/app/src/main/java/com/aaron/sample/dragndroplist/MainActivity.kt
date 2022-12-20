@@ -4,9 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,12 +22,9 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import com.aaron.sample.dragndroplist.dragndrop.DragDropColumn
 import com.aaron.sample.dragndroplist.dragndrop.ReSortableItem
 import com.aaron.sample.dragndroplist.dragndrop.detectReSortAfterLongPress
 import com.aaron.sample.dragndroplist.dragndrop.rememberSortableLazyListState
@@ -47,7 +42,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     val vm: MainViewModel by viewModels()
-                    MyScreen2(vm)
+                    MyScreen(vm)
                 }
             }
         }
@@ -55,7 +50,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyScreen2(vm: MainViewModel) {
+fun MyScreen(vm: MainViewModel) {
     val users = vm.users
     val state = rememberSortableLazyListState(onMove = { from, to ->
         vm.swapUser(from.index, to.index)
