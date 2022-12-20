@@ -1,4 +1,4 @@
-package com.aaron.sample.dragndroplist.dragndrop2
+package com.aaron.sample.dragndroplist.dragndrop
 
 import androidx.compose.ui.input.pointer.PointerEvent
 import androidx.compose.ui.input.pointer.PointerEventPass

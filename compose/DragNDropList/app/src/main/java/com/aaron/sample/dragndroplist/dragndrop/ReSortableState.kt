@@ -1,4 +1,4 @@
-package com.aaron.sample.dragndroplist.dragndrop2
+package com.aaron.sample.dragndroplist.dragndrop
 
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.lazy.LazyListItemInfo

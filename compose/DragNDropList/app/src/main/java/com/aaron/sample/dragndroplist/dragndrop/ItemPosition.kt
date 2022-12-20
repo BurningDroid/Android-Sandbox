@@ -1,4 +1,4 @@
-package com.aaron.sample.dragndroplist.dragndrop2
+package com.aaron.sample.dragndroplist.dragndrop
 
 data class ItemPosition(
     val index: Int,

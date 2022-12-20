@@ -1,5 +1,6 @@
 package com.aaron.sample.dragndroplist
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,6 +12,7 @@ class MainViewModel: ViewModel() {
         private set
 
     fun swapUser(from: Int, to: Int) {
+        Log.d("TEST", "[test] swap - $from -> $to")
         users = users.toMutableList().apply {
             add(to, removeAt(from))
         }
