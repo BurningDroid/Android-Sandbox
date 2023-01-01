@@ -16,13 +16,16 @@ import androidx.navigation.NavController
 import com.aaron.sample.chapter46.NavRoutes
 
 @Composable
-fun Welcome(navController: NavController) {
+fun Welcome(
+    navController: NavController,
+    userName: String?
+) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("Welcome", style = MaterialTheme.typography.h5)
+            Text("Welcome, $userName", style = MaterialTheme.typography.h5)
 
             Spacer(modifier = Modifier.size(30.dp))
 
