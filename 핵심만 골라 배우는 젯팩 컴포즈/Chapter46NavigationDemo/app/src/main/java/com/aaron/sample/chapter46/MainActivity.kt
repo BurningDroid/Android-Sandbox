@@ -9,6 +9,12 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.aaron.sample.chapter46.screens.Home
+import com.aaron.sample.chapter46.screens.Profile
+import com.aaron.sample.chapter46.screens.Welcome
 import com.aaron.sample.chapter46.ui.theme.Chapter46NavigationDemoTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,6 +36,20 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen() {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = NavRoutes.Home.route) {
+        composable(NavRoutes.Home.route) {
+            Home(navController = navController)
+        }
+
+        composable(NavRoutes.Welcome.route) {
+            Welcome(navController = navController)
+        }
+
+        composable(NavRoutes.Profile.route) {
+            Profile()
+        }
+    }
 }
 
 @Preview(showBackground = true)
