@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.aaron.sample.chapter46.NavRoutes
 
 @Composable
 fun Home(
@@ -44,7 +45,11 @@ fun Home(
 
             Spacer(modifier = Modifier.size(30.dp))
 
-            Button(onClick = {}) {
+            Button(
+                onClick = {
+                    navController.navigate(NavRoutes.Welcome.route)
+                }
+            ) {
                 Text(text = "Register")
             }
         }

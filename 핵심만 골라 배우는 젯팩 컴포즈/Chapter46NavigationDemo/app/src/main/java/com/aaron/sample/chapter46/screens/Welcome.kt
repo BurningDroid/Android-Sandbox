@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.aaron.sample.chapter46.NavRoutes
 
 @Composable
 fun Welcome(navController: NavController) {
@@ -25,7 +26,11 @@ fun Welcome(navController: NavController) {
 
             Spacer(modifier = Modifier.size(30.dp))
 
-            Button(onClick = {}) {
+            Button(
+                onClick = {
+                    navController.navigate(NavRoutes.Profile.route)
+                }
+            ) {
                 Text(text = "Set up your profile")
             }
         }
