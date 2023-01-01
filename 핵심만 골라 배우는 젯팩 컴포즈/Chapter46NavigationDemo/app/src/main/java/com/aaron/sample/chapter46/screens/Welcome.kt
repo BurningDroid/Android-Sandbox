@@ -31,7 +31,9 @@ fun Welcome(
 
             Button(
                 onClick = {
-                    navController.navigate(NavRoutes.Profile.route)
+                    navController.navigate(NavRoutes.Profile.route) {
+                        popUpTo(NavRoutes.Home.route)
+                    }
                 }
             ) {
                 Text(text = "Set up your profile")
