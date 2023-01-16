@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import com.aaron.sample.chapter47.ui.theme.Chapter47BottomBarDemoTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,5 +32,5 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen() {
-
+    val navController = rememberNavController()
 }
