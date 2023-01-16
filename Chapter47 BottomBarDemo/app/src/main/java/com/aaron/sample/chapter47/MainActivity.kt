@@ -3,13 +3,17 @@ package com.aaron.sample.chapter47
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -19,6 +23,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.aaron.sample.chapter47.nav.NavigationHost
 import com.aaron.sample.chapter47.ui.theme.Chapter47BottomBarDemoTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,7 +36,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-
+                    MainScreen()
                 }
             }
         }
@@ -41,6 +46,25 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
+    Scaffold(
+        topBar = {
+            TopAppBar(title = {
+                Text("Bottom Navigation Demo")
+            })
+        },
+        content = {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it)
+            ) {
+                NavigationHost(navController = navController)
+            }
+        },
+        bottomBar = {
+            BottomNavigationBar(navController = navController)
+        }
+    )
 }
 
 @Composable
