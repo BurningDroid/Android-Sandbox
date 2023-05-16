@@ -11,12 +11,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.youknow.study.chapter10.R
 
 @Composable
 fun SimpleButtonDemo() {
-    val a = "A"
-    val b = "B"
-    var text: String by remember { mutableStateOf(a) }
+    val a = stringResource(id = R.string.a)
+    val b = stringResource(id = R.string.b)
+    var text by remember { mutableStateOf(a) }
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
