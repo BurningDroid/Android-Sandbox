@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.youknow.study.chapter10.R
 
@@ -15,7 +16,7 @@ import com.youknow.study.chapter10.R
 fun ImageDemo() {
     Image(
         painter = painterResource(id = R.drawable.baseline_airport_shuttle),
-        contentDescription = "Airport Shuttle",
+        contentDescription = stringResource(R.string.airport_shuttle_desc),
         contentScale = ContentScale.FillBounds,
         modifier = Modifier
             .size(width = 128.dp, height = 128.dp)

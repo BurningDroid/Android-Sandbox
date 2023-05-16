@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Chapter 10 Test</string>
+    <string name="airport_shuttle_desc">Airport Shuttle</string>
 </resources>
