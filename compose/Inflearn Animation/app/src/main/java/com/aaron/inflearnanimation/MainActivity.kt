@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.aaron.inflearnanimation.ui.example.Ex1_12
+import com.aaron.inflearnanimation.ui.screen.MainScreen
 import com.aaron.inflearnanimation.ui.theme.InflearnAnimationTheme
 
 class MainActivity : ComponentActivity() {
@@ -11,7 +12,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             InflearnAnimationTheme {
-                Ex1_12()
+                MainScreen()
             }
         }
     }
