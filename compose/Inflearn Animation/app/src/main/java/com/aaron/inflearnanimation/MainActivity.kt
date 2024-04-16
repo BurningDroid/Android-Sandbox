@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.aaron.inflearnanimation.ui.screen.section2.MainScreen
 import com.aaron.inflearnanimation.ui.screen.section3.Section3Screen
+import com.aaron.inflearnanimation.ui.screen.section4.Section4Screen
 import com.aaron.inflearnanimation.ui.theme.InflearnAnimationTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +14,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             InflearnAnimationTheme {
 //                MainScreen()
-                Section3Screen()
+//                Section3Screen()
+                Section4Screen()
             }
         }
     }
