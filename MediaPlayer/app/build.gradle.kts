@@ -67,7 +67,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-//    implementation 'com.google.android.exoplayer:exoplayer-core:2.12.0'
-//    implementation 'com.google.android.exoplayer:exoplayer-dash:2.12.0'
-//    implementation 'com.google.android.exoplayer:exoplayer-ui:2.12.0'
+    // Exoplayer
+    implementation(libs.media3.exoplayer)
 }
