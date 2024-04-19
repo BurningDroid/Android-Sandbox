@@ -1,4 +1,4 @@
-package com.aaron.mediaplayer
+package com.aaron.mediaplayer.music
 
 data class Music(
     val name: String,

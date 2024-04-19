@@ -1,6 +1,8 @@
-package com.aaron.mediaplayer
+package com.aaron.mediaplayer.ui
 
 import androidx.lifecycle.ViewModel
+import com.aaron.mediaplayer.music.Music
+import com.aaron.mediaplayer.R
 
 class MainViewModel : ViewModel() {
 

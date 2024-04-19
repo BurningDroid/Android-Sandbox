@@ -1,4 +1,4 @@
-package com.aaron.mediaplayer
+package com.aaron.mediaplayer.ui
 
 import android.net.Uri
 import androidx.compose.animation.AnimatedContent
@@ -72,6 +72,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
+import com.aaron.mediaplayer.music.Music
+import com.aaron.mediaplayer.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.max

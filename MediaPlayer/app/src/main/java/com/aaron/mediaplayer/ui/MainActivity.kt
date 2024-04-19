@@ -1,4 +1,4 @@
-package com.aaron.mediaplayer
+package com.aaron.mediaplayer.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
