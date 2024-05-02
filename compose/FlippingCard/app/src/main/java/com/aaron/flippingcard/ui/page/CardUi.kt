@@ -1,8 +1,7 @@
 package com.aaron.flippingcard.ui.page
 
-import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.keyframes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -37,7 +36,7 @@ import com.aaron.flippingcard.R
 import com.aaron.flippingcard.ui.page.model.CardItem
 
 
-private const val animationDuration = 800
+private const val animationDuration = 300
 
 @Composable
 fun CardUi(
@@ -45,18 +44,24 @@ fun CardUi(
     accelerometer: Accelerometer,
     onFlip: () -> Unit
 ) {
-    val rotated = card.isFlipped
+    val flipped = card.isFlipped
     val flipping by animateFloatAsState(
-        targetValue = if (rotated) 180f else 0f,
-        animationSpec = tween(animationDuration, easing = LinearOutSlowInEasing)
+        targetValue = if (flipped) 180f else 360f,
+        animationSpec = keyframes { }
     )
     val alphaFront by animateFloatAsState(
-        targetValue = if (rotated) 0f else 1f,
-        animationSpec = tween(animationDuration/2, easing = LinearOutSlowInEasing)
+        targetValue = if (flipped) 0f else 1f,
+        animationSpec = keyframes {
+            delayMillis = animationDuration/2
+            durationMillis = 1
+        }
     )
     val alphaBack by animateFloatAsState(
-        targetValue = if (rotated) 1f else 0f,
-        animationSpec = tween(animationDuration/2, easing = LinearOutSlowInEasing)
+        targetValue = if (flipped) 1f else 0f,
+        animationSpec = keyframes {
+            delayMillis = animationDuration/2
+            durationMillis = 1
+        }
     )
 
     val cardShape = RoundedCornerShape(40.dp)
@@ -137,7 +142,7 @@ private fun CardBack(
             .graphicsLayer {
                 this.alpha = alpha
                 rotationY = rotation * -1
-                cameraDistance = 8 * density
+                cameraDistance = 32 * density
             },
     ) {
         Row(
