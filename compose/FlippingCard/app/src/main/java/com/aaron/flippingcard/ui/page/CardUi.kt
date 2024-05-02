@@ -26,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
@@ -44,67 +45,64 @@ fun CardUi(
     accelerometer: Accelerometer,
     onFlip: () -> Unit
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        val rotated = card.isFlipped
-        val flipping by animateFloatAsState(
-            targetValue = if (rotated) 180f else 0f,
-            animationSpec = tween(animationDuration, easing = LinearOutSlowInEasing)
-        )
-        val alphaFront by animateFloatAsState(
-            targetValue = if (rotated) 0f else 1f,
-            animationSpec = tween(animationDuration, easing = LinearOutSlowInEasing)
-        )
-        val alphaBack by animateFloatAsState(
-            targetValue = if (rotated) 1f else 0f,
-            animationSpec = tween(animationDuration, easing = LinearOutSlowInEasing)
-        )
+    val rotated = card.isFlipped
+    val flipping by animateFloatAsState(
+        targetValue = if (rotated) 180f else 0f,
+        animationSpec = tween(animationDuration, easing = LinearOutSlowInEasing)
+    )
+    val alphaFront by animateFloatAsState(
+        targetValue = if (rotated) 0f else 1f,
+        animationSpec = tween(animationDuration/2, easing = LinearOutSlowInEasing)
+    )
+    val alphaBack by animateFloatAsState(
+        targetValue = if (rotated) 1f else 0f,
+        animationSpec = tween(animationDuration/2, easing = LinearOutSlowInEasing)
+    )
 
-        val cardShape = RoundedCornerShape(40.dp)
-        val modifier = Modifier
-            .graphicsLayer {
+    val cardShape = RoundedCornerShape(40.dp)
+    val modifier = Modifier
+        .graphicsLayer {
 //                rotationY = rotation
-                rotationY = flipping
+            rotationY = flipping
 
 //                rotationX = accelerometer.x
 //                rotationY = accelerometer.y
 //                rotationZ = accelerometer.z
 
-                cameraDistance = 8 * density
-            }
-            .border(
-                width = 1.dp,
-                color = Color.Gray,
-                shape = cardShape
-            )
-            .background(
-                color = Color.LightGray.copy(alpha = 0.8F),
-                shape = cardShape
-            )
-            .size(
-                width = 335.dp,
-                height = 472.dp
-            )
-            .clip(cardShape)
-            .clickable(onClick = onFlip)
-
-        Box(
-            modifier = modifier,
-            contentAlignment = Alignment.Center
-        ) {
-            CardBack(
-                card = card,
-                alpha = alphaBack,
-                rotation = flipping,
-            )
-            CardFront(
-                card = card,
-                alpha = alphaFront,
-            )
+            cameraDistance = 8 * density
         }
+        .border(
+            width = 1.dp,
+            color = Color.Gray,
+            shape = cardShape
+        )
+        .size(
+            width = 335.dp,
+            height = 472.dp
+        )
+        .shadow(
+            elevation = 16.dp,
+            shape = cardShape
+        )
+        .background(
+            color = Color.LightGray,
+            shape = cardShape
+        )
+        .clip(cardShape)
+        .clickable(onClick = onFlip)
+
+    Box(
+        modifier = modifier
+    ) {
+        CardBack(
+            card = card,
+            alpha = alphaBack,
+            rotation = flipping,
+        )
+        CardFront(
+            card = card,
+            alpha = alphaFront,
+        )
     }
 }
 
