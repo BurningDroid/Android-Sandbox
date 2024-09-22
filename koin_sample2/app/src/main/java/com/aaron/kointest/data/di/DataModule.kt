@@ -1,7 +1,7 @@
 package com.aaron.kointest.data.di
 
-import com.aaron.kointest.data.GreetingRepo
-import com.aaron.kointest.data.impl.GreetingRepository
+import com.aaron.kointest.data.repo.GreetingRepo
+import com.aaron.kointest.data.repo.impl.GreetingRepository
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Single
 

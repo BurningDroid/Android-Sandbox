@@ -1,7 +1,7 @@
 package com.aaron.kointest.domain.usecase.impl
 
 import android.util.Log
-import com.aaron.kointest.data.GreetingRepo
+import com.aaron.kointest.data.repo.GreetingRepo
 import com.aaron.kointest.domain.usecase.GetGreeting
 import org.koin.core.annotation.Single
 

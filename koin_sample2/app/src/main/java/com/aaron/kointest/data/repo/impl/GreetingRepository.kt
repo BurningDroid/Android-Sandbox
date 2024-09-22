@@ -1,7 +1,8 @@
-package com.aaron.kointest.data.impl
+package com.aaron.kointest.data.repo.impl
 
 import android.util.Log
-import com.aaron.kointest.data.GreetingRepo
+import com.aaron.kointest.data.repo.GreetingRepo
+import com.aaron.kointest.data.source.SettingsDataSource
 import kotlinx.coroutines.delay
 import org.koin.core.annotation.Single
 
