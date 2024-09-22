@@ -10,11 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.aaron.kointest.data.impl.GreetingRepository
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomePane(
-    vm: HomeViewModel = HomeViewModel(GreetingRepository())
+    vm: HomeViewModel = koinViewModel()
 ) {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Column(
