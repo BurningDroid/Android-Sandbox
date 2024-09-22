@@ -27,7 +27,7 @@ fun HomePane(
                 modifier = Modifier.padding(innerPadding)
             )
 
-            Button(onClick = {}) {
+            Button(onClick = vm::onClick) {
                 Text("Button")
             }
         }

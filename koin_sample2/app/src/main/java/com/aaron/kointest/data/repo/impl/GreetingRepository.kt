@@ -7,7 +7,9 @@ import kotlinx.coroutines.delay
 import org.koin.core.annotation.Single
 
 @Single
-class GreetingRepository: GreetingRepo {
+class GreetingRepository(
+    private val settingsDao: SettingsDataSource
+): GreetingRepo {
 
     init {
         Log.w(TAG, "[test] init")
@@ -16,7 +18,13 @@ class GreetingRepository: GreetingRepo {
     override suspend fun getGreeting(): String {
         Log.w(TAG, "[test] getGreeting")
         delay(2000)
-        return "Koin"
+        return settingsDao.get()
+    }
+
+    override suspend fun updateGreeting(value: String): String {
+        Log.w(TAG, "[test] updateGreeting - $value")
+        delay(2000)
+        return settingsDao.set(value)
     }
 
     companion object {
