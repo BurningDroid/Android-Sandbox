@@ -17,7 +17,7 @@ class HomeViewModel(
 ): ViewModel() {
 
     private val random: String
-        get() = listOf("Android", "Kotlin", "Compose", "KMP").random()
+        get() = listOf("Android", "Kotlin", "Compose", "KMP", "Hilt", "Koin", "Google", "Jetbrain").random()
 
     var greeting: String by mutableStateOf("Android")
         private set
