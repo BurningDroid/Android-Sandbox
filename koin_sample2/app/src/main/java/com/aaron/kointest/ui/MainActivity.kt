@@ -1,4 +1,4 @@
-package com.aaron.kointest
+package com.aaron.kointest.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
