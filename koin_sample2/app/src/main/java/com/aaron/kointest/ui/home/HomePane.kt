@@ -10,12 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.aaron.kointest.ui.theme.KoinTestTheme
+import com.aaron.kointest.data.impl.GreetingRepository
 
 @Composable
 fun HomePane(
-    vm: HomeViewModel = HomeViewModel()
+    vm: HomeViewModel = HomeViewModel(GreetingRepository())
 ) {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Column(
@@ -41,12 +40,4 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         text = "Hello $name!",
         modifier = modifier
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    KoinTestTheme {
-        Greeting("Android")
-    }
 }
