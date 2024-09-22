@@ -10,10 +10,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.aaron.kointest.ui.theme.KoinTestTheme
 
 @Composable
-fun HomePane() {
+fun HomePane(
+    vm: HomeViewModel = HomeViewModel()
+) {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Greeting(
-            name = "Android",
+            name = vm.greeting,
             modifier = Modifier.padding(innerPadding)
         )
     }
