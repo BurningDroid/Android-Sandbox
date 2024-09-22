@@ -1,7 +1,8 @@
 package com.aaron.kointest
 
 import android.app.Application
-import com.aaron.kointest.di.DataModule
+import com.aaron.kointest.data.di.DataModule
+import com.aaron.kointest.domain.di.DomainModule
 import org.koin.core.context.startKoin
 import org.koin.ksp.generated.defaultModule
 import org.koin.ksp.generated.module
@@ -14,6 +15,7 @@ class KoinApp: Application() {
         startKoin {
             modules(
                 DataModule().module,
+                DomainModule().module,
                 defaultModule
             )
         }

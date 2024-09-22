@@ -1,4 +1,4 @@
-package com.aaron.kointest.di
+package com.aaron.kointest.data.di
 
 import com.aaron.kointest.data.GreetingRepo
 import com.aaron.kointest.data.impl.GreetingRepository

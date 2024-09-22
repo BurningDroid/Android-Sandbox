@@ -5,13 +5,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aaron.kointest.data.GreetingRepo
+import com.aaron.kointest.domain.usecase.GetGreeting
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
 class HomeViewModel(
-    private val greetingRepo: GreetingRepo
+    private val getGreeting: GetGreeting
 ): ViewModel() {
 
     var greeting: String by mutableStateOf("Android")
@@ -19,7 +19,7 @@ class HomeViewModel(
 
     init {
         viewModelScope.launch {
-            greeting = greetingRepo.getGreeting()
+            greeting = getGreeting.get()
         }
     }
 }
