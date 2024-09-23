@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "KoinTest"
 include(":app")
- 
+include(":domain")
