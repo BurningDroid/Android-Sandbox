@@ -5,7 +5,6 @@ import com.aaron.kointest.data.di.DataModule
 import com.aaron.kointest.domain.di.DomainModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import org.koin.dsl.module
 import org.koin.ksp.generated.defaultModule
 import org.koin.ksp.generated.module
 
