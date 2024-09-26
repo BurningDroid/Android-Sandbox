@@ -10,12 +10,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import com.aaron.kointest.ui.common.ObserveLifecycle
+import com.aaron.kointest.ui.nav.NavPage
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomePane(
-    vm: HomeViewModel = koinViewModel()
+    vm: HomeViewModel = koinViewModel(),
+    navController: NavHostController
 ) {
+    ObserveLifecycle {
+        vm.loadData()
+    }
+
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -27,8 +35,10 @@ fun HomePane(
                 modifier = Modifier.padding(innerPadding)
             )
 
-            Button(onClick = vm::onClick) {
-                Text("Button")
+            Button(onClick = {
+                navController.navigate(NavPage.Dashboard.route)
+            }) {
+                Text("Go")
             }
         }
     }
