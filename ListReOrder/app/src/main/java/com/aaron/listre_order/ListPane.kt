@@ -36,15 +36,15 @@ import sh.calvin.reorderable.rememberReorderableLazyListState
 fun ListPane(
     vm: MainViewModel
 ) {
-    Scaffold {
-        var list by remember { mutableStateOf(vm.items) }
-        val lazyListState = rememberLazyListState()
-        val reorderableLazyColumnState = rememberReorderableLazyListState(lazyListState) { from, to ->
-            list = list.toMutableList().apply {
-                add(to.index, removeAt(from.index))
-            }
+    var list by remember { mutableStateOf(vm.items) }
+    val lazyListState = rememberLazyListState()
+    val reorderableLazyColumnState = rememberReorderableLazyListState(lazyListState) { from, to ->
+        list = list.toMutableList().apply {
+            add(to.index, removeAt(from.index))
         }
+    }
 
+    Scaffold {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
