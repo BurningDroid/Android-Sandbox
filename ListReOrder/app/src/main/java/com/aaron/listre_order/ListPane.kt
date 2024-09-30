@@ -11,15 +11,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -40,34 +37,31 @@ fun ListPane(
     vm: MainViewModel
 ) {
     Scaffold {
-        Column(
+        var list by remember { mutableStateOf(vm.items) }
+        val lazyListState = rememberLazyListState()
+        val reorderableLazyColumnState = rememberReorderableLazyListState(lazyListState) { from, to ->
+            list = list.toMutableList().apply {
+                add(to.index, removeAt(from.index))
+            }
+        }
+
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(it)
+                .padding(it),
+            state = lazyListState,
+            contentPadding = PaddingValues(horizontal = 20.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            var list by remember(Unit) { mutableStateOf(vm.items) }
-            val lazyListState = rememberLazyListState()
-            val reorderableLazyListState = rememberReorderableLazyListState(lazyListState) { from, to ->
-                list = list.toMutableList().apply {
-                    add(to.index, removeAt(from.index))
-                }
-            }
-
-            LazyColumn(
-                state = lazyListState,
-                contentPadding = PaddingValues(horizontal = 20.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                itemsIndexed(
-                    items = list,
-                    key = { _, item -> item.id }
-                ) { _, item ->
-                    ReorderableItem(reorderableLazyListState, key = item.id) { isDragging ->
-                        ItemUi(
-                            item = item,
-                            modifier = Modifier.draggableHandle()
-                        )
-                    }
+            itemsIndexed(
+                items = list,
+                key = { _, item -> item.id }
+            ) { _, item ->
+                ReorderableItem(reorderableLazyColumnState, key = item.id) {
+                    ItemUi(
+                        item = item,
+                        modifier = Modifier.draggableHandle()
+                    )
                 }
             }
         }
