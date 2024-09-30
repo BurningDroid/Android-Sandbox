@@ -32,8 +32,8 @@ fun ListPane(
                 contentPadding = PaddingValues(horizontal = 20.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(vm.items) {
-                    ItemUi(it)
+                items(vm.items) { item ->
+                    ItemUi(item)
                 }
             }
         }
