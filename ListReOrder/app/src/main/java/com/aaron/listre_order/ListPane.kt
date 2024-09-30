@@ -1,23 +1,40 @@
 package com.aaron.listre_order
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import sh.calvin.reorderable.ReorderableItem
+import sh.calvin.reorderable.rememberReorderableLazyListState
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ListPane(
     vm: MainViewModel
@@ -28,12 +45,29 @@ fun ListPane(
                 .fillMaxSize()
                 .padding(it)
         ) {
+            var list by remember(Unit) { mutableStateOf(vm.items) }
+            val lazyListState = rememberLazyListState()
+            val reorderableLazyListState = rememberReorderableLazyListState(lazyListState) { from, to ->
+                list = list.toMutableList().apply {
+                    add(to.index, removeAt(from.index))
+                }
+            }
+
             LazyColumn(
+                state = lazyListState,
                 contentPadding = PaddingValues(horizontal = 20.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(vm.items) { item ->
-                    ItemUi(item)
+                itemsIndexed(
+                    items = list,
+                    key = { _, item -> item.id }
+                ) { _, item ->
+                    ReorderableItem(reorderableLazyListState, key = item.id) { isDragging ->
+                        ItemUi(
+                            item = item,
+                            modifier = Modifier.draggableHandle()
+                        )
+                    }
                 }
             }
         }
@@ -41,9 +75,12 @@ fun ListPane(
 }
 
 @Composable
-fun ItemUi(item: Item) {
+fun ItemUi(
+    item: Item,
+    modifier: Modifier = Modifier
+) {
     val shape = RoundedCornerShape(16.dp)
-    Column(
+    Row(
         modifier = Modifier
             .fillMaxWidth()
             .border(1.dp, MaterialTheme.colorScheme.outline, shape)
@@ -51,17 +88,27 @@ fun ItemUi(item: Item) {
             .padding(
                 horizontal = 20.dp,
                 vertical = 12.dp
-            )
+            ),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(
-            text = item.id.toString(),
-            color = MaterialTheme.colorScheme.onSurface.copy(0.5F),
-            style = MaterialTheme.typography.labelMedium,
-        )
+        Column {
+            Text(
+                text = item.id.toString(),
+                color = MaterialTheme.colorScheme.onSurface.copy(0.5F),
+                style = MaterialTheme.typography.labelMedium,
+            )
 
-        Text(
-            text = item.name,
-            style = MaterialTheme.typography.titleMedium
+            Text(
+                text = item.name,
+                style = MaterialTheme.typography.titleMedium
+            )
+        }
+
+        Icon(
+            imageVector = Icons.Default.Menu,
+            contentDescription = "",
+            modifier = modifier
         )
     }
 }
