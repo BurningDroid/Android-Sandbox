@@ -50,7 +50,7 @@ fun ListPane(
                 .fillMaxSize()
                 .padding(it),
             state = lazyListState,
-            contentPadding = PaddingValues(horizontal = 20.dp),
+            contentPadding = PaddingValues(horizontal = 20.dp, vertical = 4.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             itemsIndexed(
