@@ -27,7 +27,7 @@ import kotlinx.coroutines.CoroutineScope
 
 @Stable
 class ReorderableLazyListState internal constructor(
-    state: LazyListState,
+    val state: LazyListState,
     scope: CoroutineScope,
     onMoveState: State<suspend CoroutineScope.(from: LazyListItemInfo, to: LazyListItemInfo) -> Unit>,
     scrollThreshold: Float,

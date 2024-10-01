@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.lazy.LazyListItemInfo
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -24,7 +25,7 @@ import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun rememberReorderableLazyListState(
-    lazyListState: LazyListState,
+    lazyListState: LazyListState = rememberLazyListState(),
     scrollThresholdPadding: PaddingValues = PaddingValues(0.dp),
     scrollThreshold: Dp = 48.dp,
     scroller: Scroller = rememberScroller(

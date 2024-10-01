@@ -37,11 +37,6 @@ import com.aaron.listre_order.ui.order.rememberReorderableLazyListState
 fun ListPane(
     vm: MainViewModel
 ) {
-    val lazyListState = rememberLazyListState()
-    val reorderableLazyColumnState = rememberReorderableLazyListState(lazyListState) { from, to ->
-        vm.onMove(from.index, to.index)
-    }
-
     Scaffold(
         modifier = Modifier
             .safeDrawingPadding(),
@@ -64,8 +59,11 @@ fun ListPane(
 
             Spacer(modifier = Modifier.size(16.dp))
 
+            val reorderableLazyColumnState = rememberReorderableLazyListState { from, to ->
+                vm.onMove(from.index, to.index)
+            }
             LazyColumn(
-                state = lazyListState,
+                state = reorderableLazyColumnState.state,
                 contentPadding = PaddingValues(vertical = 4.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
